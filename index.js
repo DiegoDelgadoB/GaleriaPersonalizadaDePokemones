@@ -3,7 +3,7 @@ const fs = require('fs');
 const axios = require('axios')
 
 let pokemones = [];
-let pokeArrglo = [];
+let pokeArreglo = [];
 
 async function pokemonesGet() {
     const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=150')
@@ -22,6 +22,10 @@ pokemonesGet().then((results) => {
         pokemones.push(getData(pokemonName))
     })
 
+    Promise.all(pokemones).then((data) => {
+        data.forEach((p) => {
+            pokeArreglo.push({nombre: p.name, img: p.sprites.front_default});
+        });
+    });
+});
 
-    
-}) 
